@@ -1,0 +1,5 @@
+description: Invaild input
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/ValidationError.yaml
