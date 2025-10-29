@@ -1,0 +1,6 @@
+type: object
+properties:
+  error:
+    type: string
+    description: A descriptive message about the error.
+    example: "Task not found"

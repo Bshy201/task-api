@@ -13,7 +13,7 @@ tags:
 paths:
   /tasks:
     get:
-      summary: List all tasks
+      summary: List all task
       tags:
         - Tasks
       parameters:
@@ -59,6 +59,40 @@ paths:
                 $ref: '#/components/schemas/Task'
         '400':
           $ref: '#/components/responses/BadRequest'
+  /tasks/{id}:
+    get:
+      tags:
+        - Tasks
+      summary: Retrieve a single task by ID
+      operationId: getTaskById
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the task to retrieve.
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        '200':
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Validation error for invalid input (e.g., ID is not a number)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
 components:
   schemas:
     Task:
@@ -84,6 +118,13 @@ components:
           type: array
           items:
             type: string
+    NotFoundError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A descriptive message about the error.
+          example: Task not found
   responses:
     BadRequest:
       description: Invaild input

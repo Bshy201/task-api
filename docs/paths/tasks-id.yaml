@@ -1,0 +1,33 @@
+get:
+  tags:
+    - Tasks
+  summary: Retrieve a single task by ID
+  operationId: getTaskById
+  parameters:
+    - name: id
+      in: path
+      description: The ID of the task to retrieve.
+      required: true
+      schema:
+        type: integer
+        format: int64
+        example: 1
+  responses:
+    '200':
+      description: Task retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Task.yaml'
+    '400':
+      description: Validation error for invalid input (e.g., ID is not a number)
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ValidationError.yaml'
+    '404':
+      description: Task not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/NotFoundError.yaml'
